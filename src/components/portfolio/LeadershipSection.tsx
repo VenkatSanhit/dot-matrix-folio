@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
 
+interface LeadershipSectionProps {
+  variant: "light" | "dark";
+}
+
 const LEADERSHIP = [
   {
     role: "NGO Leadership",
@@ -36,8 +40,10 @@ const INTERESTS = [
   { icon: "◆", label: "Automobiles", sub: "F1 & Model Collecting" },
 ];
 
-const LeadershipSection = () => (
-  <section id="leadership" className="py-28 relative overflow-hidden">
+const LeadershipSection = ({ variant }: LeadershipSectionProps) => {
+  const sectionClass = variant === "light" ? "section-light" : "section-dark";
+  return (
+  <section id="leadership" className={`py-24 md:py-32 relative overflow-hidden ${sectionClass}`}>
     <div className="absolute inset-0 dot-grid-subtle opacity-15" />
 
     <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -66,8 +72,12 @@ const LeadershipSection = () => (
             transition={{ duration: 0.6, delay: i * 0.12 }}
             className="relative group"
           >
-            <div className="relative border border-border/60 p-8 overflow-hidden transition-all duration-500 group-hover:border-accent/30"
-              style={{ background: "linear-gradient(135deg, hsl(0 0% 8% / 0.6) 0%, hsl(0 0% 5% / 0.4) 100%)" }}
+            <div
+              className={`relative border border-border p-8 overflow-hidden transition-all duration-500 group-hover:border-accent/30 ${
+                variant === "light"
+                  ? "bg-gray-50/90"
+                  : "bg-[hsl(0_0%_6%/0.6)]"
+              }`}
             >
               {/* Corner accents */}
               <span className="absolute top-0 left-0 w-5 h-5 border-t border-l border-accent/0 group-hover:border-accent/60 transition-colors duration-500" />
@@ -106,7 +116,12 @@ const LeadershipSection = () => (
 
               <ul className="space-y-2.5 relative z-10">
                 {item.achievements.map((ach, j) => (
-                  <li key={j} className="flex items-start gap-3 text-xs text-foreground/65">
+                  <li
+                    key={j}
+                    className={`flex items-start gap-3 text-xs ${
+                      variant === "light" ? "text-gray-700" : "text-foreground/80"
+                    }`}
+                  >
                     <span className="text-accent font-mono shrink-0 mt-0.5">▸</span>
                     {ach}
                   </li>
@@ -138,8 +153,9 @@ const LeadershipSection = () => (
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative border border-border/50 p-6 text-center group cursor-default overflow-hidden transition-all duration-400 hover:border-accent/30"
-              style={{ background: "hsl(0 0% 7% / 0.5)" }}
+              className={`relative border border-border p-6 text-center group cursor-default overflow-hidden transition-all duration-400 hover:border-accent/30 ${
+                variant === "light" ? "bg-white/80" : "bg-[hsl(0_0%_7%/0.5)]"
+              }`}
             >
               {/* Hover bg glow */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
@@ -164,6 +180,7 @@ const LeadershipSection = () => (
       </motion.div>
     </div>
   </section>
-);
+  );
+};
 
 export default LeadershipSection;

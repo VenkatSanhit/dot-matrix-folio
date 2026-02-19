@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
 
+interface AboutSectionProps {
+  variant: "light" | "dark";
+}
+
 const SKILLS = [
   "Product Roadmap Planning", "PRD & User Story Creation", "MVP Design", "OKRs/KPIs",
   "Go-to-Market Strategy", "RICE / MoSCoW / Kano", "Agile / SAFe / Scrum",
@@ -23,8 +27,10 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const AboutSection = () => (
-  <section id="about" className="py-28 relative overflow-hidden">
+const AboutSection = ({ variant }: AboutSectionProps) => {
+  const sectionClass = variant === "light" ? "section-light" : "section-dark";
+  return (
+  <section id="about" className={`py-24 md:py-32 relative overflow-hidden ${sectionClass}`}>
     {/* Background */}
     <div className="absolute inset-0 dot-grid-subtle opacity-20" />
     <div
@@ -99,6 +105,11 @@ const AboutSection = () => (
                 <span className="text-accent">"email"</span>
                 <span className="text-muted-foreground">: </span>
                 <a href="mailto:sanhit567@gmail.com" className="text-accent underline decoration-accent/30 hover:decoration-accent transition-all">"sanhit567@gmail.com"</a>
+              </div>
+              <div className="pl-4">
+                <span className="text-accent">"linkedin"</span>
+                <span className="text-muted-foreground">: </span>
+                <a href="https://www.linkedin.com/in/venkat-sanhit-pm/" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-accent/30 hover:decoration-accent transition-all">"linkedin.com/in/venkat-sanhit-pm"</a>
               </div>
               <div className="text-muted-foreground/40">{"}"}</div>
             </div>
@@ -178,6 +189,7 @@ const AboutSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default AboutSection;

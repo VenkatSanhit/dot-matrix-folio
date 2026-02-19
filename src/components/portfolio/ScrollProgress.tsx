@@ -17,10 +17,10 @@ const ScrollProgress = ({}: ScrollProgressProps) => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 h-0.5 bg-border">
+    <div className="fixed top-14 left-0 right-0 z-30 h-0.5 bg-border/50">
       <div
         className="h-full bg-accent transition-all duration-100"
-        style={{ width: `${progress}%`, boxShadow: "0 0 8px hsl(4 100% 59% / 0.8)" }}
+        style={{ width: `${progress}%`, boxShadow: "0 0 8px hsl(4 100% 59% / 0.6)" }}
       />
     </div>
   );

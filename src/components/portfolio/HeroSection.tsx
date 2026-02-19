@@ -9,10 +9,10 @@ const TITLES = [
 ];
 
 interface HeroSectionProps {
-  onNavigate: (page: number) => void;
+  onScrollToProjects: () => void;
 }
 
-const HeroSection = ({ onNavigate }: HeroSectionProps) => {
+const HeroSection = ({ onScrollToProjects }: HeroSectionProps) => {
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [typing, setTyping] = useState(true);
@@ -38,15 +38,15 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
     }
   }, [displayed, typing, titleIndex]);
 
-  const handleScroll = (href: string) => {
-    const el = document.querySelector(href);
+  const handleScroll = (id: string) => {
+    const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="section-dark relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Rich background layers */}
       <div className="absolute inset-0 dot-grid opacity-30" />
@@ -178,10 +178,10 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
           transition={{ delay: 0.88, duration: 0.6 }}
           className="flex flex-wrap items-center justify-center gap-4 mb-16"
         >
-          <button onClick={() => onNavigate(1)} className="btn-retro-primary">
+          <button onClick={onScrollToProjects} className="btn-retro-primary">
             VIEW PROJECTS
           </button>
-          <button onClick={() => handleScroll("#about")} className="btn-retro-outline">
+          <button onClick={() => handleScroll("about")} className="btn-retro-outline">
             ABOUT ME
           </button>
           <a href="mailto:sanhit567@gmail.com" className="btn-retro-outline">

@@ -11,8 +11,8 @@ const CONTACT_LINKS = [
   },
   {
     label: "LINKEDIN",
-    value: "linkedin.com/in/sanhit",
-    href: "https://linkedin.com/in/sanhit",
+    value: "linkedin.com/in/venkat-sanhit-pm",
+    href: "https://www.linkedin.com/in/venkat-sanhit-pm/",
     prefix: "$ open --url",
     icon: "↗",
   },
@@ -25,29 +25,66 @@ const CONTACT_LINKS = [
   },
 ];
 
-const ContactSection = () => {
+interface ContactSectionProps {
+  variant: "light" | "dark";
+}
+
+const ContactSection = ({ variant }: ContactSectionProps) => {
+  const sectionClass = variant === "light" ? "section-light" : "section-dark";
   const [input, setInput] = useState("");
   const [lines, setLines] = useState<string[]>([
     "SYSTEM READY. TYPE A MESSAGE OR PRESS ENTER.",
     "────────────────────────────────────────",
   ]);
 
-  const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const [sending, setSending] = useState(false);
+
+  const handleKey = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (input.trim()) {
+      const message = input.trim();
+      if (!message || sending) return;
+
+      setSending(true);
+      setLines((l) => [...l, `> ${message}`, "SENDING..."]);
+      setInput("");
+
+      try {
+        const res = await fetch("https://formsubmit.co/ajax/sanhit567@gmail.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            _subject: "Portfolio Contact — Message from Visitor",
+            message,
+            name: "Portfolio Visitor",
+            _template: "table",
+          }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          setLines((l) => [
+            ...l.slice(0, -1),
+            "MSG SENT. I'LL GET BACK TO YOU SOON. ✓",
+            "────────────────────────────────────────",
+          ]);
+        } else {
+          throw new Error(data.message || "Failed to send");
+        }
+      } catch {
         setLines((l) => [
-          ...l,
-          `> ${input}`,
-          "MSG RECEIVED. I'LL GET BACK TO YOU SOON. ✓",
+          ...l.slice(0, -1),
+          "SEND FAILED. TRY: mailto:sanhit567@gmail.com",
           "────────────────────────────────────────",
         ]);
+      } finally {
+        setSending(false);
       }
-      setInput("");
     }
   };
 
   return (
-    <section id="contact" className="py-28 relative overflow-hidden">
+    <section id="contact" className={`py-24 md:py-32 relative overflow-hidden ${sectionClass}`}>
       <div className="absolute inset-0 dot-grid opacity-15" />
       {/* Center glow */}
       <div
@@ -64,9 +101,9 @@ const ContactSection = () => {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="section-label">// 05</span>
+          <span className="section-label text-gray-500">// 05</span>
           <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
-          <h2 className="font-terminal text-5xl md:text-6xl text-foreground tracking-wider">CONTACT</h2>
+          <h2 className="font-terminal text-5xl md:text-6xl text-gray-900 tracking-wider">CONTACT</h2>
           <div className="flex-1 h-px bg-gradient-to-l from-border to-transparent" />
         </motion.div>
 
@@ -76,11 +113,11 @@ const ContactSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-center text-sm text-muted-foreground mb-12 max-w-md mx-auto leading-relaxed"
+          className="text-center text-sm text-gray-600 mb-12 max-w-md mx-auto leading-relaxed"
         >
-          Open to <span className="text-foreground font-medium">PM roles</span>,{" "}
-          <span className="text-foreground font-medium">advisory opportunities</span>, and{" "}
-          <span className="text-foreground font-medium">product conversations</span>.
+          Open to <span className="text-gray-900 font-medium">PM roles</span>,{" "}
+          <span className="text-gray-900 font-medium">advisory opportunities</span>, and{" "}
+          <span className="text-gray-900 font-medium">product conversations</span>.
           Let's build something meaningful.
         </motion.p>
 
@@ -110,15 +147,15 @@ const ContactSection = () => {
                 <div className="w-0.5 h-10 bg-border group-hover:bg-accent transition-colors duration-300 flex-shrink-0 relative z-10" />
 
                 <div className="flex-1 relative z-10">
-                  <div className="font-mono text-[10px] text-muted-foreground/50 tracking-widest mb-1">
+                  <div className="font-mono text-[10px] text-gray-400 tracking-widest mb-1">
                     {link.prefix}
                   </div>
-                  <div className="font-mono text-sm text-foreground group-hover:text-accent transition-colors duration-300">
+                  <div className="font-mono text-sm text-gray-100 group-hover:text-accent transition-colors duration-300">
                     {link.value}
                   </div>
                 </div>
 
-                <span className="font-terminal text-xl text-muted-foreground/30 group-hover:text-accent transition-all duration-300 relative z-10 group-hover:scale-110 transform">
+                <span className="font-terminal text-xl text-gray-500 group-hover:text-accent transition-all duration-300 relative z-10 group-hover:scale-110 transform">
                   {link.icon}
                 </span>
 
@@ -148,7 +185,7 @@ const ContactSection = () => {
                 <div className="w-2.5 h-2.5 rounded-full bg-accent" style={{ boxShadow: "0 0 6px hsl(4 100% 59% / 0.8)" }} />
                 <div className="w-2.5 h-2.5 rounded-full bg-silver/40" />
                 <div className="w-2.5 h-2.5 rounded-full bg-muted-foreground/15" />
-                <span className="font-mono text-xs text-muted-foreground/50 ml-3 tracking-widest">message.terminal</span>
+                <span className="font-mono text-xs text-gray-400 ml-3 tracking-widest">message.terminal</span>
               </div>
 
               {/* Terminal output */}
@@ -160,8 +197,10 @@ const ContactSection = () => {
                       line.startsWith(">")
                         ? "text-accent"
                         : line.startsWith("──")
-                        ? "text-border"
-                        : "text-muted-foreground/70"
+                        ? "text-gray-600"
+                        : line === "SENDING..."
+                        ? "text-accent"
+                        : "text-gray-300"
                     }`}
                   >
                     {line}
@@ -170,7 +209,7 @@ const ContactSection = () => {
               </div>
 
               {/* Terminal input */}
-              <div className="flex items-center gap-2 border-t border-border/50 pt-4">
+              <div className="flex items-center gap-2 border-t border-gray-600 pt-4">
                 <span className="font-mono text-xs text-accent">{">"}</span>
                 <input
                   type="text"
@@ -178,7 +217,7 @@ const ContactSection = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKey}
                   placeholder="type your message and press enter..."
-                  className="flex-1 bg-transparent font-mono text-xs text-foreground outline-none placeholder:text-muted-foreground/30"
+                  className="flex-1 bg-transparent font-mono text-xs text-gray-100 outline-none placeholder:text-gray-500"
                 />
                 <span className="cursor-blink" />
               </div>
@@ -196,11 +235,11 @@ const ContactSection = () => {
         >
           <div className="flex items-center gap-3">
             <span className="status-dot active" />
-            <span className="font-mono text-xs text-muted-foreground/40 tracking-widest">
+            <span className="font-mono text-xs text-gray-500 tracking-widest">
               © 2025 VENKAT SANHIT SRINIVASULA
             </span>
           </div>
-          <span className="font-mono text-xs text-muted-foreground/40 tracking-widest">
+          <span className="font-mono text-xs text-gray-500 tracking-widest">
             BUILT WITH PRECISION // PM v6.0
           </span>
         </motion.div>

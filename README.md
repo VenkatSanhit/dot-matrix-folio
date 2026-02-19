@@ -1,73 +1,58 @@
-# Welcome to your Lovable project
+# Dot Matrix Folio
 
-## Project info
+Premium Product Manager / Product Owner portfolio — minimal, retro-tech, modern SaaS aesthetic.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
+## Tech Stack
 
 - Vite
 - TypeScript
 - React
-- shadcn-ui
 - Tailwind CSS
+- Framer Motion
+- shadcn/ui components
 
-## How can I deploy this project?
+## Quick Start
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```sh
+npm install
+npm run dev
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Project Structure
 
-Yes, you can!
+```
+src/
+├── components/     # Reusable UI components
+├── sections/       # Page section components
+├── data/           # Content data (projects, experiences, metrics)
+├── pages/          # Route pages
+└── lib/            # Utilities
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Build
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```sh
+npm run build
+npm run preview
+```
+
+## Contact Form
+
+Uses [FormSubmit](https://formsubmit.co) (free, no signup). **First-time setup:** Submit a test message from the live site — FormSubmit will email you an activation link. Click it once to enable. After that, all messages go straight to your inbox.
+
+## Deploy to GitHub Pages
+
+This portfolio is configured to deploy to **https://venkatsanhit.github.io/studio-pm-showcase/**.
+
+### Option A: Push to `studio-pm-showcase` repo (recommended)
+
+1. Copy this project into your `studio-pm-showcase` repo (or push this code to it)
+2. In repo **Settings → Pages**, set **Source** to **GitHub Actions**
+3. Push to `main` — the workflow will build and deploy automatically
+
+### Option B: Manual deploy
+
+```sh
+VITE_GH_PAGES=true npm run build
+# Then push the `dist/` folder to the gh-pages branch of studio-pm-showcase
+```
