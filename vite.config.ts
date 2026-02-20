@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig({
-  base: process.env.VITE_GH_PAGES === "true" ? "./" : "/",
+  base: process.env.VITE_GH_PAGES === "true" ? "/dot-matrix-folio/" : "/",
   server: {
     host: "::",
     port: 8080,
