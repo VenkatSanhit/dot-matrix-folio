@@ -42,17 +42,16 @@ Uses [FormSubmit](https://formsubmit.co) (free, no signup). **First-time setup:*
 
 ## Deploy to GitHub Pages
 
-This portfolio is configured to deploy to **https://venkatsanhit.github.io/studio-pm-showcase/**.
+Live at **https://venkatsanhit.github.io/dot-matrix-folio/**
 
-### Option A: Push to `studio-pm-showcase` repo (recommended)
-
-1. Copy this project into your `studio-pm-showcase` repo (or push this code to it)
-2. In repo **Settings → Pages**, set **Source** to **GitHub Actions**
-3. Push to `main` — the workflow will build and deploy automatically
-
-### Option B: Manual deploy
+### Deploy (one command)
 
 ```sh
-VITE_GH_PAGES=true npm run build
-# Then push the `dist/` folder to the gh-pages branch of studio-pm-showcase
+npm run deploy
 ```
+
+Builds and pushes to the `gh-pages` branch. Ensure **Settings → Pages** uses **Deploy from a branch** → `gh-pages` / root.
+
+### GitHub Actions (optional)
+
+Push to `main` triggers auto-deploy. Requires **Settings → Pages** → **Source: GitHub Actions**.
